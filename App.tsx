@@ -11,6 +11,8 @@ import HomeScreen from './src/screens/home';
 import AccountScreen from './src/screens/account';
 import JobsScreen from './src/screens/jobs';
 import useLogged from './src/hooks/useLogged';
+import { useFonts } from '@use-expo/font';
+import AppLoading from 'expo-app-loading';
 
 const loginFlow = createStackNavigator({
   SignIn: SignInScreen,
@@ -35,23 +37,29 @@ const navigator = createSwitchNavigator({
 });
 
 
-const Container = createAppContainer(navigator);
+const AppContainer = createAppContainer(navigator);
+
+
+//object containing all fonts 
+const customFonts = {
+  TrendaExtraLight: require("./assets/fonts/Trenda-ExtraLight.otf"),
+  TrendaLightIt: require("./assets/fonts/Trenda-LightIt.otf"),
+  TrendaLight: require("./assets/fonts/Trenda-Light.otf"),
+  TrendaRegular: require("./assets/fonts/Trenda-Regular.otf"),
+  TrendaSemiboldIt: require("./assets/fonts/Trenda-SemiboldIt.otf"),
+  TrendaSemibold: require("./assets/fonts/Trenda-Semibold.otf")
+}
+
 
 
 export default function App() {
-
+  const [isLoaded] = useFonts(customFonts);
   const { isLogged } = useLogged();
 
+  if (!isLoaded)
+    return <></>;
   return (
-    <Container />
+    <AppContainer />
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
