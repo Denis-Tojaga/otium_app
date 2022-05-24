@@ -54,6 +54,7 @@ const customFonts = {
 export default function App() {
   const [isLoaded] = useFonts(customFonts);
   const { isLogged } = useLogged();
+  console.log('is logged -> ', isLoaded);
 
   useEffect(() => {
     LogBox.ignoreLogs(["EventEmitter.removeListener"]);

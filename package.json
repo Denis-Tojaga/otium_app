@@ -10,8 +10,10 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@react-navigation/native": "^6.0.10",
     "@use-expo/font": "^2.0.0",
+    "@xstate/react": "^3.0.0",
     "expo": "~45.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -23,7 +25,8 @@
     "react-native-web": "0.17.7",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
-    "react-navigation-tabs": "^2.11.2"
+    "react-navigation-tabs": "^2.11.2",
+    "xstate": "^4.32.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

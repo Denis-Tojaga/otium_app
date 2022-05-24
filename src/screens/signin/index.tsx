@@ -5,12 +5,17 @@ import { SafeAreaView } from 'react-navigation';
 import CustomButton from '../../components/CustomButton';
 import NavigateLink from '../../components/NavigateLink';
 import { colors } from '../../utils/theme/colors';
+import { AntDesign } from '@expo/vector-icons';
+import { useMachine } from '@xstate/react';
 
 import { sizes } from '../../utils/theme/sizes';
 import { staticStrings } from '../../utils/theme/staticStrings';
+import { AuthenticationMachine } from '../../machines/AuthenticationMachine';
 
 const SignInScreen = ({ navigation }) => {
-
+    const [authenticationMachine, sendAuthenticationMachineEvent] = useMachine(AuthenticationMachine);
+    const { context: authContext } = authenticationMachine;
+    console.log('Context -> ', authContext);
     const [email_username_phone, setEmail_username_phone] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
 
@@ -52,7 +57,6 @@ const SignInScreen = ({ navigation }) => {
                         <Text
                             style={{
                                 fontSize: 12,
-                                fontWeight: '800',
                                 color: colors.fontColor,
                                 fontFamily: 'TrendaSemibold',
                                 letterSpacing: 3,
@@ -63,20 +67,37 @@ const SignInScreen = ({ navigation }) => {
                         >OR</Text>
                         {/* Auth buttons */}
                         <View style={styles.authButtonsContainer}>
-                            <TouchableOpacity style={styles.authButton}></TouchableOpacity>
-                            <TouchableOpacity style={styles.authButton}></TouchableOpacity>
+                            <TouchableOpacity style={styles.authButton}>
+                                <AntDesign name="google" size={24} color="white" />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.authButton}>
+                                <AntDesign name="apple1" size={24} color="white" />
+                            </TouchableOpacity>
 
                         </View>
                     </View>
                 </View>
                 <View style={styles.footer}>
-                    <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-                        <Text>Register</Text>
-                    </TouchableOpacity>
+                    <View style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-around',
+                        flexDirection: 'row',
+                        width: '85%',
+                        paddingHorizontal: sizes.generalMargin,
+                        marginBottom: 10
+                    }}>
+                        <Text style={{ fontFamily: 'TrendaRegular', fontSize: 16 }}>Don't have an account?</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                            <Text style={{ fontFamily: 'TrendaSemibold', fontSize: 16, fontWeight: '900', marginLeft: 10 }}>Register</Text>
+                        </TouchableOpacity>
+                    </View>
                     <CustomButton text={staticStrings.signin.buttonText} handleClick={() => { console.log('Button clicked') }} />
                 </View>
             </View>
         </SafeAreaView>
+
+
     );
 };
 
@@ -110,7 +131,7 @@ const styles = StyleSheet.create({
         fontSize: sizes.titleFontSize,
         fontWeight: '800',
         color: colors.fontColor,
-        fontFamily: 'TrendaSemibold',
+        fontFamily: 'TrendaRegular',
         letterSpacing: 3
     },
     formContainer: {
@@ -156,7 +177,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        borderWidth: 2,
         height: '35%'
     }
 });
