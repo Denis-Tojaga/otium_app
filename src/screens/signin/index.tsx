@@ -19,6 +19,11 @@ const SignInScreen = ({ navigation }) => {
     const [email_username_phone, setEmail_username_phone] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
 
+
+    const handleNavigation = () => {
+        navigation.navigate('mapFlow');
+    }
+
     return (
         <SafeAreaView style={styles.page}>
             {/* Logo holder */}
@@ -92,7 +97,7 @@ const SignInScreen = ({ navigation }) => {
                             <Text style={{ fontFamily: 'TrendaSemibold', fontSize: 16, fontWeight: '900', marginLeft: 10 }}>Register</Text>
                         </TouchableOpacity>
                     </View>
-                    <CustomButton text={staticStrings.signin.buttonText} handleClick={() => { console.log('Button clicked') }} />
+                    <CustomButton text={staticStrings.signin.buttonText} handleClick={handleNavigation} />
                 </View>
             </View>
         </SafeAreaView>

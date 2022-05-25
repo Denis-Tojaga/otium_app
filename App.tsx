@@ -12,6 +12,7 @@ import AccountScreen from './src/screens/account';
 import JobsScreen from './src/screens/jobs';
 import useLogged from './src/hooks/useLogged';
 import { useEffect } from 'react';
+import MapScreen from './src/screens/map';
 
 const loginFlow = createStackNavigator({
   SignIn: SignInScreen,
@@ -32,6 +33,7 @@ const bottomTabFlow = createBottomTabNavigator({
 
 const navigator = createSwitchNavigator({
   loginFlow: loginFlow,
+  mapFlow: MapScreen,
   bottomTabFlow: bottomTabFlow
 });
 
