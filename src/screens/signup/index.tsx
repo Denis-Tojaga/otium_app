@@ -24,15 +24,17 @@ const SignUpScreen = ({ navigation }) => {
     const handleNavigation = () => {
         if (validation()) {
             error && setError(false);
-            const data = {
-                socialAuth: null,
-                defaultAuth: {
-                    username: username,
-                    email: email,
-                    password: password
+            const object = {
+                data: {
+                    socialAuth: null,
+                    defaultAuth: {
+                        username: username,
+                        email: email,
+                        password: password
+                    }
                 }
             };
-            sendAuthenticationMachineEvent({ type: 'authenticate', data: data });
+            sendAuthenticationMachineEvent({ type: 'authenticate', data: object });
             navigation.navigate('mapFlow');
         } else {
             setError(true);
@@ -59,7 +61,7 @@ const SignUpScreen = ({ navigation }) => {
                         style={styles.inputField}
                         placeholder={staticStrings.signup.username_placeholder}
                         value={username}
-                        onChange={(e: any) => setUsername(e.target.value)}
+                        onChangeText={(text: any) => setUsername(text)}
                     />
                     <TextInput
                         autoCapitalize='none'
@@ -67,7 +69,7 @@ const SignUpScreen = ({ navigation }) => {
                         style={styles.inputField}
                         placeholder={staticStrings.signup.email_placeholder}
                         value={email}
-                        onChange={(e: any) => setEmail(e.target.value)}
+                        onChangeText={(text: any) => setEmail(text)}
                     />
                     <TextInput
                         autoCapitalize='none'
@@ -76,7 +78,7 @@ const SignUpScreen = ({ navigation }) => {
                         style={styles.inputField}
                         placeholder={staticStrings.signup.password_placeholder}
                         value={password}
-                        onChange={(e: any) => setPassword(e.target.value)}
+                        onChangeText={(text: any) => setPassword(text)}
                     />
                     {error && <Text style={styles.errorLabel}>{staticStrings.signin.error}</Text>}
                 </View>

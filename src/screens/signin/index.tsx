@@ -24,14 +24,16 @@ const SignInScreen = ({ navigation }) => {
     const handleNavigation = () => {
         if (!checkSocialAuth() && validation()) {
             error && setError(false);
-            const data = {
-                socialAuth: null,
-                defaultAuth: {
-                    email_username_phone: email_username_phone,
-                    password: password
+            const object = {
+                data: {
+                    socialAuth: null,
+                    defaultAuth: {
+                        email_username_phone: email_username_phone,
+                        password: password
+                    }
                 }
             };
-            sendAuthenticationMachineEvent({ type: 'authenticate', data: data });
+            sendAuthenticationMachineEvent({ type: 'authenticate', data: object });
             navigation.navigate('mapFlow');
         } else {
             setError(true);
@@ -58,7 +60,7 @@ const SignInScreen = ({ navigation }) => {
                         style={styles.inputField}
                         placeholder={staticStrings.signin.email_phone_username_placeholder}
                         value={email_username_phone}
-                        onChange={(e: any) => setEmail_username_phone(e.target.value)}
+                        onChangeText={(e: any) => setEmail_username_phone(e)}
                     />
                     <TextInput
                         autoCapitalize='none'
@@ -67,7 +69,7 @@ const SignInScreen = ({ navigation }) => {
                         style={styles.inputField}
                         placeholder={staticStrings.signin.password_placeholder}
                         value={password}
-                        onChange={(e: any) => setPassword(e.target.value)}
+                        onChangeText={(e: any) => setPassword(e)}
                     />
                     {error && <Text style={styles.errorLabel}>{staticStrings.signin.error}</Text>}
                     <View>

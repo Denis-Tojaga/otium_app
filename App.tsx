@@ -13,15 +13,28 @@ import JobsScreen from './src/screens/jobs';
 import useLogged from './src/hooks/useLogged';
 import { useEffect } from 'react';
 import MapScreen from './src/screens/map';
+import DetailsScreen from './src/screens/details';
+import { AntDesign } from '@expo/vector-icons';
+import { colors } from './src/utils/theme/colors';
 
 const loginFlow = createStackNavigator({
   SignIn: SignInScreen,
   SignUp: SignUpScreen
 });
 
+
+const homeFlow = createStackNavigator({
+  Home: HomeScreen,
+  Details: DetailsScreen
+});
+homeFlow.navigationOptions = {
+  title: "Home",
+  tabBarIcon: ({ tintColor }) => <AntDesign name="home" size={25} color={colors.accentColor} />
+}
+
 const bottomTabFlow = createBottomTabNavigator({
   accountFlow: AccountScreen,
-  homeFlow: HomeScreen,
+  homeFlow: homeFlow,
   jobsFlow: JobsScreen
 }, {
   initialRouteName: "homeFlow",
