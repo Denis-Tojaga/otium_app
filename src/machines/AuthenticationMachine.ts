@@ -5,12 +5,15 @@ export const AuthenticationMachine = createMachine<any>({
     id: 'authenticationMachine',
     initial: 'authenticationMachine',
     context: {
-        data: null
+        data: {
+            socialAuth: null,
+            defaultAuth: null
+        }
     },
     states: {
         authenticationMachine: {
             on: {
-                load: {
+                authenticate: {
                     actions: assign({ data: updateAuthenticationData })
                 },
                 update: {

@@ -15,14 +15,29 @@ import { AuthenticationMachine } from '../../machines/AuthenticationMachine';
 const SignInScreen = ({ navigation }) => {
     const [authenticationMachine, sendAuthenticationMachineEvent] = useMachine(AuthenticationMachine);
     const { context: authContext } = authenticationMachine;
-    console.log('Context -> ', authContext);
     const [email_username_phone, setEmail_username_phone] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
-
+    const [error, setError] = React.useState<boolean>(false);
+    const validation = () => email_username_phone != '' && password != '';
+    const checkSocialAuth = () => email_username_phone == '' && password == '';
 
     const handleNavigation = () => {
-        navigation.navigate('mapFlow');
-    }
+        if (!checkSocialAuth() && validation()) {
+            error && setError(false);
+            const data = {
+                socialAuth: null,
+                defaultAuth: {
+                    email_username_phone: email_username_phone,
+                    password: password
+                }
+            };
+            sendAuthenticationMachineEvent({ type: 'authenticate', data: data });
+            navigation.navigate('mapFlow');
+        } else {
+            setError(true);
+            console.log('Either auth or errors')
+        }
+    };
 
     return (
         <SafeAreaView style={styles.page}>
@@ -38,17 +53,23 @@ const SignInScreen = ({ navigation }) => {
                 <View>
                     {/* Input fields */}
                     <TextInput
+                        autoCapitalize='none'
+                        autoCorrect={false}
                         style={styles.inputField}
                         placeholder={staticStrings.signin.email_phone_username_placeholder}
                         value={email_username_phone}
                         onChange={(e: any) => setEmail_username_phone(e.target.value)}
                     />
                     <TextInput
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        secureTextEntry={true}
                         style={styles.inputField}
                         placeholder={staticStrings.signin.password_placeholder}
                         value={password}
                         onChange={(e: any) => setPassword(e.target.value)}
                     />
+                    {error && <Text style={styles.errorLabel}>{staticStrings.signin.error}</Text>}
                     <View>
                         {/* Divider */}
                         <View
@@ -138,6 +159,13 @@ const styles = StyleSheet.create({
         color: colors.fontColor,
         fontFamily: 'TrendaRegular',
         letterSpacing: 3
+    },
+    errorLabel: {
+        fontFamily: 'TrendaLight',
+        fontSize: 14,
+        color: 'red',
+        marginTop: 10,
+        textAlign: 'center'
     },
     formContainer: {
         display: 'flex',

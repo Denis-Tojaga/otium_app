@@ -15,14 +15,30 @@ import { AuthenticationMachine } from '../../machines/AuthenticationMachine';
 const SignUpScreen = ({ navigation }) => {
     const [authenticationMachine, sendAuthenticationMachineEvent] = useMachine(AuthenticationMachine);
     const { context: authContext } = authenticationMachine;
-    console.log('Context -> ', authContext);
     const [username, setUsername] = React.useState<string>('');
     const [email, setEmail] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
+    const [error, setError] = React.useState<boolean>(false);
+    const validation = () => username != '' && email != '' && password != '';
 
     const handleNavigation = () => {
-        navigation.navigate('mapFlow');
-    }
+        if (validation()) {
+            error && setError(false);
+            const data = {
+                socialAuth: null,
+                defaultAuth: {
+                    username: username,
+                    email: email,
+                    password: password
+                }
+            };
+            sendAuthenticationMachineEvent({ type: 'authenticate', data: data });
+            navigation.navigate('mapFlow');
+        } else {
+            setError(true);
+            console.log('Either auth or errors')
+        }
+    };
 
     return (
         <SafeAreaView style={styles.page}>
@@ -38,55 +54,31 @@ const SignUpScreen = ({ navigation }) => {
                 <View>
                     {/* Input fields */}
                     <TextInput
+                        autoCapitalize='none'
+                        autoCorrect={false}
                         style={styles.inputField}
                         placeholder={staticStrings.signup.username_placeholder}
                         value={username}
                         onChange={(e: any) => setUsername(e.target.value)}
                     />
                     <TextInput
+                        autoCapitalize='none'
+                        autoCorrect={false}
                         style={styles.inputField}
                         placeholder={staticStrings.signup.email_placeholder}
                         value={email}
                         onChange={(e: any) => setEmail(e.target.value)}
                     />
                     <TextInput
+                        autoCapitalize='none'
+                        autoCorrect={false}
+                        secureTextEntry={true}
                         style={styles.inputField}
                         placeholder={staticStrings.signup.password_placeholder}
                         value={password}
                         onChange={(e: any) => setPassword(e.target.value)}
                     />
-                    <View>
-                        {/* Divider */}
-                        <View
-                            style={{
-                                width: 300,
-                                borderBottomColor: colors.screenBackground,
-                                borderBottomWidth: 1,
-                                marginTop: 30
-                            }}
-                        />
-                        <Text
-                            style={{
-                                fontSize: 12,
-                                color: colors.fontColor,
-                                fontFamily: 'TrendaSemibold',
-                                letterSpacing: 3,
-                                marginTop: 5,
-                                width: 300,
-                                textAlign: 'center'
-                            }}
-                        >OR</Text>
-                        {/* Auth buttons */}
-                        <View style={styles.authButtonsContainer}>
-                            <TouchableOpacity style={styles.authButton}>
-                                <AntDesign name="google" size={24} color="white" />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.authButton}>
-                                <AntDesign name="apple1" size={24} color="white" />
-                            </TouchableOpacity>
-
-                        </View>
-                    </View>
+                    {error && <Text style={styles.errorLabel}>{staticStrings.signin.error}</Text>}
                 </View>
                 <View style={styles.footer}>
                     <View style={{
@@ -145,6 +137,13 @@ const styles = StyleSheet.create({
         fontFamily: 'TrendaRegular',
         letterSpacing: 3
     },
+    errorLabel: {
+        fontFamily: 'TrendaLight',
+        fontSize: 14,
+        color: 'red',
+        marginTop: 10,
+        textAlign: 'center'
+    },
     formContainer: {
         display: 'flex',
         alignItems: 'center',
@@ -188,7 +187,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        height: '35%'
+        height: '45%'
     }
 });
 

@@ -105,8 +105,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 2,
-        backgroundColor: 'red',
+        borderWidth: 2
     },
     map: {
         width: '100%',
