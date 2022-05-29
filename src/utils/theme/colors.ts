@@ -4,5 +4,6 @@ export const colors = {
     placeholderText: '#435076',
     buttonBackground: '#EE7A5D',
     screenBackground: '#E5E5E5',
-    accentColor: '#EE7A5D'
+    accentColor: '#EE7A5D',
+    darkBlueBackground: '#435076'
 };

@@ -15,7 +15,9 @@ import { useEffect } from 'react';
 import MapScreen from './src/screens/map';
 import DetailsScreen from './src/screens/details';
 import { AntDesign } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { colors } from './src/utils/theme/colors';
+import { GlobalStateProvider } from './src/context/GlobalStateProvider';
 
 const loginFlow = createStackNavigator({
   SignIn: SignInScreen,
@@ -29,18 +31,27 @@ const homeFlow = createStackNavigator({
 });
 homeFlow.navigationOptions = {
   title: "Home",
-  tabBarIcon: ({ tintColor }) => <AntDesign name="home" size={25} color={colors.accentColor} />
+  tabBarIcon: ({ tintColor }) => <AntDesign name="home" size={25} color={tintColor} />
+}
+
+const jobsFlow = createStackNavigator({
+  Job: JobsScreen,
+  Details: DetailsScreen
+});
+jobsFlow.navigationOptions = {
+  title: "Jobs",
+  tabBarIcon: ({ tintColor }) => <MaterialIcons name="work" size={24} color={tintColor} />
 }
 
 const bottomTabFlow = createBottomTabNavigator({
-  accountFlow: AccountScreen,
+  jobsFlow: jobsFlow,
   homeFlow: homeFlow,
-  jobsFlow: JobsScreen
+  accountFlow: AccountScreen,
 }, {
   initialRouteName: "homeFlow",
   tabBarOptions: {
-    activeTintColor: "#EC216A",
-    inactiveTintColor: "#14284D"
+    activeTintColor: colors.accentColor,
+    inactiveTintColor: 'black'
   }
 });
 
@@ -76,7 +87,9 @@ export default function App() {
   }, [])
 
   return (
-    <AppContainer />
+    <GlobalStateProvider>
+      <AppContainer />
+    </GlobalStateProvider>
   );
 }
 

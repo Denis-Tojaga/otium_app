@@ -21,6 +21,6 @@ export const CATEGORIES = [
         id: '4',
         title: 'Get your eIdentity card',
         smallDescription: 'Learn our language, from basic to advanced, you will be able to accomplish first interactions with our citiziens.',
-        illustration: 'identity_card'
+        illustration: 'ecard'
     },
 ];

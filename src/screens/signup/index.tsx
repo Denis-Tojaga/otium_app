@@ -20,18 +20,17 @@ const SignUpScreen = ({ navigation }) => {
     const [password, setPassword] = React.useState<string>('');
     const [error, setError] = React.useState<boolean>(false);
     const validation = () => username != '' && email != '' && password != '';
+    console.log('Auth machine ', authContext);
 
     const handleNavigation = () => {
         if (validation()) {
             error && setError(false);
             const object = {
-                data: {
-                    socialAuth: null,
-                    defaultAuth: {
-                        username: username,
-                        email: email,
-                        password: password
-                    }
+                socialAuth: null,
+                defaultAuth: {
+                    username: username,
+                    email: email,
+                    password: password
                 }
             };
             sendAuthenticationMachineEvent({ type: 'authenticate', data: object });

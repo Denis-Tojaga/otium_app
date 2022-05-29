@@ -25,12 +25,10 @@ const SignInScreen = ({ navigation }) => {
         if (!checkSocialAuth() && validation()) {
             error && setError(false);
             const object = {
-                data: {
-                    socialAuth: null,
-                    defaultAuth: {
-                        email_username_phone: email_username_phone,
-                        password: password
-                    }
+                socialAuth: null,
+                defaultAuth: {
+                    email_username_phone: email_username_phone,
+                    password: password
                 }
             };
             sendAuthenticationMachineEvent({ type: 'authenticate', data: object });
