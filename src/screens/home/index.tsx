@@ -1,11 +1,69 @@
 import { useMachine } from '@xstate/react';
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Animated, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { CATEGORIES } from '../../api/categories';
+import CategoryCard from '../../components/CategoryCard';
 import { AuthenticationMachine } from '../../machines/AuthenticationMachine';
 import { LocationMachine } from '../../machines/LocationMachine';
 import { colors } from '../../utils/theme/colors';
 import { sizes } from '../../utils/theme/sizes';
+
+
+
+const { width, height } = Dimensions.get("screen");
+const ITEM_SIZE = height * 0.25 + 50;
+
+
+const CategoryList = () => {
+    //animation managing
+    const scrollY = React.useRef(new Animated.Value(0)).current;
+
+    return (
+        <Animated.FlatList
+            style={{ width: '100%', height: '100%', padding: sizes.generalMargin }}
+            onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                { useNativeDriver: true }
+            )}
+            data={CATEGORIES}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => {
+
+                /*  FlatList Animation Reference code */
+                const inputRange = [
+                    -1,
+                    0,
+                    ITEM_SIZE * index,
+                    ITEM_SIZE * (index + 1)
+                ]
+                const opacityInputRange = [
+                    -1,
+                    0,
+                    ITEM_SIZE * index,
+                    ITEM_SIZE * (index + 1)
+                ]
+                const scale = scrollY.interpolate({
+                    inputRange,
+                    outputRange: [1, 1, 1, 0]
+                })
+                const opacity = scrollY.interpolate({
+                    inputRange: opacityInputRange,
+                    outputRange: [1, 1, 1, 0]
+                })
+                /*  FlatList Animation Reference code */
+
+                /* Category card */
+                return (
+                    <Animated.View style={{ width: width * 0.85, height: height * 0.25, transform: [{ scale }], opacity, display: 'flex' }}>
+                        <CategoryCard item={item} index={index} />
+                    </Animated.View>
+                );
+            }}
+        />
+    );
+}
 
 const HomeScreen = () => {
     const [authenticationMachine, sendAuthenticationMachineEvent] = useMachine(AuthenticationMachine);
@@ -33,6 +91,8 @@ const HomeScreen = () => {
             {/* Container holding the categories list */}
             <View style={styles.categoriesContainer}>
                 <Text style={styles.sectionLabel}>Adapt quickly</Text>
+
+                <CategoryList />
             </View>
         </View>
     );
@@ -42,11 +102,10 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
     page: {
         flex: 1,
-        backgroundColor: colors.screenBackground
     },
     header: {
         width: '100%',
-        height: '26%',
+        height: '20%',
         backgroundColor: colors.darkBlueBackground,
         display: 'flex',
         alignItems: 'center',
@@ -57,7 +116,7 @@ const styles = StyleSheet.create({
     headingContainer: {
         width: '70%',
         height: '45%',
-        marginTop: 50,
+        marginTop: 20,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
@@ -79,23 +138,23 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: '800',
         fontFamily: 'TrendaSemibold',
-        color: 'black'
+        color: 'black',
+        marginBottom:5
     },
     marketplaceContainer: {
         borderWidth: 2,
         width: '100%',
-        height: '15%',
+        height: '17%',
         backgroundColor: 'red',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginTop: 20
     },
     categoriesContainer: {
-        borderWidth: 2,
         width: '100%',
         height: '60%',
-        backgroundColor: 'blue',
         display: 'flex',
-    },
+    }
 });
 
 HomeScreen.navigationOptions = {

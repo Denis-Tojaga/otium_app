@@ -23,4 +23,16 @@ export const CATEGORIES = [
         smallDescription: 'Learn our language, from basic to advanced, you will be able to accomplish first interactions with our citiziens.',
         illustration: 'ecard'
     },
+    {
+        id: '5',
+        title: 'Lorem ipsum',
+        smallDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+        illustration: 'lorem'
+    },
+    {
+        id: '6',
+        title: 'Lorem ipsum',
+        smallDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+        illustration: 'lorem'
+    }
 ];
