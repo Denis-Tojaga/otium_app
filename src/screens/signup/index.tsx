@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-navigation';
 import CustomButton from '../../components/CustomButton';
@@ -7,10 +7,10 @@ import NavigateLink from '../../components/NavigateLink';
 import { colors } from '../../utils/theme/colors';
 import { AntDesign } from '@expo/vector-icons';
 import { useMachine } from '@xstate/react';
-
 import { sizes } from '../../utils/theme/sizes';
 import { staticStrings } from '../../utils/theme/staticStrings';
 import { AuthenticationMachine } from '../../machines/AuthenticationMachine';
+
 
 const SignUpScreen = ({ navigation }) => {
     const [authenticationMachine, sendAuthenticationMachineEvent] = useMachine(AuthenticationMachine);
@@ -20,7 +20,6 @@ const SignUpScreen = ({ navigation }) => {
     const [password, setPassword] = React.useState<string>('');
     const [error, setError] = React.useState<boolean>(false);
     const validation = () => username != '' && email != '' && password != '';
-    console.log('Auth machine ', authContext);
 
     const handleNavigation = () => {
         if (validation()) {
@@ -45,7 +44,7 @@ const SignUpScreen = ({ navigation }) => {
         <SafeAreaView style={styles.page}>
             {/* Logo holder */}
             <View style={styles.logoContainer}>
-
+                <Image style={styles.logo} source={require('../../../assets/otium_logo.png')} />
             </View>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>{staticStrings.signup.name}</Text>
@@ -113,8 +112,16 @@ const styles = StyleSheet.create({
     logoContainer: {
         width: '100%',
         height: '25%',
-        backgroundColor: 'blue',
-        padding: sizes.generalMargin
+        padding: sizes.generalMargin,
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    logo: {
+        width: 200,
+        height: 120,
+        position:'relative',
+        marginTop:20
     },
     titleContainer: {
         display: 'flex',

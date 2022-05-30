@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, Image } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-navigation';
 import CustomButton from '../../components/CustomButton';
@@ -43,7 +43,7 @@ const SignInScreen = ({ navigation }) => {
         <SafeAreaView style={styles.page}>
             {/* Logo holder */}
             <View style={styles.logoContainer}>
-
+                <Image style={styles.logo} source={require('../../../assets/otium_logo.png')} />
             </View>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>{staticStrings.signin.name}</Text>
@@ -135,8 +135,16 @@ const styles = StyleSheet.create({
     logoContainer: {
         width: '100%',
         height: '25%',
-        backgroundColor: 'blue',
-        padding: sizes.generalMargin
+        padding: sizes.generalMargin,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    logo: {
+        width: 200,
+        height: 120,
+        position: 'relative',
+        marginTop: 20
     },
     titleContainer: {
         display: 'flex',
