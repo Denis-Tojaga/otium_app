@@ -21,7 +21,7 @@ const CategoryList = () => {
 
     return (
         <Animated.FlatList
-            style={{ width: '100%', height: '100%', padding: sizes.generalMargin }}
+            style={{ width: '100%', height: '100%', paddingHorizontal: 18 }}
             onScroll={Animated.event(
                 [{ nativeEvent: { contentOffset: { y: scrollY } } }],
                 { useNativeDriver: true }
@@ -56,7 +56,7 @@ const CategoryList = () => {
 
                 /* Category card */
                 return (
-                    <Animated.View style={{ width: width * 0.85, height: height * 0.25, transform: [{ scale }], opacity, display: 'flex' }}>
+                    <Animated.View style={{ display: 'flex', alignContent: 'center', width: width * .9, height: height * 0.25, transform: [{ scale }], opacity }}>
                         <CategoryCard item={item} index={index} />
                     </Animated.View>
                 );
@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
         fontWeight: '800',
         fontFamily: 'TrendaSemibold',
         color: 'black',
-        marginBottom:5
+        marginBottom: 5,
+        marginLeft: sizes.generalMargin
     },
     marketplaceContainer: {
         borderWidth: 2,

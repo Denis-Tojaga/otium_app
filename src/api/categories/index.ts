@@ -19,20 +19,20 @@ export const CATEGORIES = [
     },
     {
         id: '4',
-        title: 'Get your eIdentity card',
+        title: 'Get your eID',
         smallDescription: 'Learn our language, from basic to advanced, you will be able to accomplish first interactions with our citiziens.',
-        illustration: 'ecard'
+        illustration: 'card'
     },
     {
         id: '5',
         title: 'Lorem ipsum',
-        smallDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
-        illustration: 'lorem'
+        smallDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+        illustration: 'housing'
     },
     {
         id: '6',
         title: 'Lorem ipsum',
-        smallDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
-        illustration: 'lorem'
+        smallDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+        illustration: 'housing'
     }
 ];
