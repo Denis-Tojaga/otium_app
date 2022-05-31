@@ -18,6 +18,8 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors } from './src/utils/theme/colors';
 import { GlobalStateProvider } from './src/context/GlobalStateProvider';
+import { Ionicons } from '@expo/vector-icons';
+
 
 const loginFlow = createStackNavigator({
   SignIn: SignInScreen,
@@ -43,10 +45,21 @@ jobsFlow.navigationOptions = {
   tabBarIcon: ({ tintColor }) => <MaterialIcons name="work" size={24} color={tintColor} />
 }
 
+
+
+const accountFlow = createStackNavigator({
+  Account: AccountScreen,
+  Details: DetailsScreen
+});
+accountFlow.navigationOptions = {
+  title: "Account",
+  tabBarIcon: ({ tintColor }) => <Ionicons name="person" size={24} color={tintColor} />
+}
+
 const bottomTabFlow = createBottomTabNavigator({
   jobsFlow: jobsFlow,
   homeFlow: homeFlow,
-  accountFlow: AccountScreen,
+  accountFlow: accountFlow,
 }, {
   initialRouteName: "homeFlow",
   tabBarOptions: {

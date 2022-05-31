@@ -1,9 +1,11 @@
 import { useMachine } from '@xstate/react';
 import * as React from 'react';
-import { View, Text, StyleSheet, Animated, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Animated, Dimensions, FlatList, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CATEGORIES } from '../../api/categories';
+import { MARKETPLACE } from '../../api/marketplace';
 import CategoryCard from '../../components/CategoryCard';
+import MarketplaceCard from '../../components/MarketplaceCard';
 import { AuthenticationMachine } from '../../machines/AuthenticationMachine';
 import { LocationMachine } from '../../machines/LocationMachine';
 import { colors } from '../../utils/theme/colors';
@@ -63,7 +65,23 @@ const CategoryList = () => {
             }}
         />
     );
-}
+};
+
+
+const MarketplaceList = () => {
+    return (
+        <FlatList
+            style={{ width: '100%', height: '100%', borderWidth: 2 }}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={CATEGORIES}
+            keyExtractor={(item) => `${item.id}`}
+            renderItem={({ item, index }: any) => {
+                return <MarketplaceCard item={item} index={index} />
+            }}
+        />
+    );
+};
 
 const HomeScreen = () => {
     const [authenticationMachine, sendAuthenticationMachineEvent] = useMachine(AuthenticationMachine);
@@ -84,14 +102,16 @@ const HomeScreen = () => {
             {/* Container holding the marketplace list */}
             <View style={styles.marketplaceContainer}>
                 <Text style={styles.sectionLabel}>Marketplace</Text>
-
+                {/* <ScrollView horizontal>
+                    {MARKETPLACE.map(({ item, index }: any) => <MarketplaceCard item={item} index={index} />)}
+                </ScrollView> */}
+                {/* //TODO fix this */}
             </View>
 
 
             {/* Container holding the categories list */}
             <View style={styles.categoriesContainer}>
                 <Text style={styles.sectionLabel}>Adapt quickly</Text>
-
                 <CategoryList />
             </View>
         </View>
@@ -102,6 +122,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
     page: {
         flex: 1,
+        backgroundColor: '#E5E5E5',
     },
     header: {
         width: '100%',
@@ -143,13 +164,9 @@ const styles = StyleSheet.create({
         marginLeft: sizes.generalMargin
     },
     marketplaceContainer: {
-        borderWidth: 2,
         width: '100%',
-        height: '17%',
-        backgroundColor: 'red',
+        height: '20%',
         display: 'flex',
-        flexDirection: 'column',
-        marginTop: 20
     },
     categoriesContainer: {
         width: '100%',

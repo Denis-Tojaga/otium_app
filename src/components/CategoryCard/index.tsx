@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#F6F6F6',
+        backgroundColor: 'white',
         borderRadius: sizes.borderRadius,
         position: 'relative',
         shadowOffset: { width: 0, height: 4, },
