@@ -1,27 +1,27 @@
 export const MARKETPLACE = [
     {
         id: '1',
-        image: 'shirts',
+        image: 'bike',
         title: 'Three T-shirts'
     },
     {
         id: '2',
-        image: 'shirts',
+        image: 'car',
         title: 'Three T-shirts'
     },
     {
         id: '3',
-        image: 'shirts',
+        image: 'diapers',
         title: 'Three T-shirts'
     },
     {
         id: '4',
-        image: 'shirts',
+        image: 'hoodie',
         title: 'Three T-shirts'
     },
     {
         id: '5',
-        image: 'shirts',
+        image: 'kitchen_supplies',
         title: 'Three T-shirts'
     },
     {
@@ -29,10 +29,4 @@ export const MARKETPLACE = [
         image: 'shirts',
         title: 'Three T-shirts'
     },
-    {
-        id: '7',
-        image: 'shirts',
-        title: 'Three T-shirts'
-    },
-
 ];

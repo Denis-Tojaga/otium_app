@@ -70,16 +70,29 @@ const CategoryList = ({ handleCategoryNavigation }: any) => {
 
 const MarketplaceList = () => {
     return (
-        <FlatList
-            style={{ width: '100%', height: '100%', borderWidth: 2 }}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            data={CATEGORIES}
-            keyExtractor={(item) => `${item.id}`}
-            renderItem={({ item, index }: any) => {
-                return <MarketplaceCard item={item} index={index} />
-            }}
-        />
+        <View style={{ width: '100%', height: '75%', display: 'flex' }}>
+            <FlatList
+                style={{ width: '100%', height: '100%', paddingHorizontal: 15 }}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={MARKETPLACE}
+                keyExtractor={(item) => `${item.id}`}
+                renderItem={({ item, index }: any) => {
+                    return <MarketplaceCard key={index} item={item} index={index} />
+                }}
+            />
+            <Text style={{
+                alignSelf: 'flex-end',
+                marginRight: 10,
+                fontFamily: 'TrendaSemibold',
+                fontSize: 22,
+                fontWeight: 'bold',
+                textAlign: 'center',
+                color: colors.accentColor
+            }}>
+                More
+            </Text>
+        </View>
     );
 };
 
@@ -111,6 +124,7 @@ const HomeScreen = ({ navigation }: any) => {
                     {MARKETPLACE.map(({ item, index }: any) => <MarketplaceCard item={item} index={index} />)}
                 </ScrollView> */}
                 {/* //TODO fix this */}
+                <MarketplaceList />
             </View>
 
 
