@@ -10,8 +10,16 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const JobsScreen = () => {
-
     const [searchText, setSearchText] = React.useState<string>('');
+    const [jobsData, setJobsData] = React.useState<any>(JOBS);
+
+    const handleSearch = () => {
+        const result = searchText != '' ? jobsData.filter((job: any) => {
+            if (job.title.toString().toLowerCase().includes(searchText) || job.skills.includes(searchText))
+                return job;
+        }) : JOBS;
+        setJobsData(result);
+    };
 
     return (
         <View style={styles.page}>
@@ -25,14 +33,14 @@ const JobsScreen = () => {
                         value={searchText}
                         onChangeText={setSearchText}
                     />
-                    <TouchableOpacity style={styles.iconContainer}>
+                    <TouchableOpacity style={styles.iconContainer} onPress={handleSearch}>
                         <AntDesign name="search1" size={24} color="black" />
                     </TouchableOpacity>
                 </View>
             </View>
             <FlatList
                 style={styles.listContainer}
-                data={JOBS}
+                data={jobsData}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item, index }) => {
@@ -89,7 +97,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '70%',
         paddingHorizontal: 25,
-        paddingTop: 30
+        paddingTop: 30,
     },
     inputField: {
         width: '85%',
