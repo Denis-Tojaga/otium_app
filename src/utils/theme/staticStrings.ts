@@ -19,5 +19,8 @@ export const staticStrings = {
     map: {
         searchInputPlaceholder: 'City where you are migrating to...',
         confirmButton: 'Confirm'
+    },
+    jobs: {
+        searchInputPlaceholder: 'Search for a job with title or keywords'
     }
 }

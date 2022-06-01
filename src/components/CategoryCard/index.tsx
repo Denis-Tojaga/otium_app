@@ -6,11 +6,7 @@ import { colors } from '../../utils/theme/colors';
 import { sizes } from '../../utils/theme/sizes';
 
 
-const CategoryCard = ({ item, index }: any) => {
-
-    const handleCategoryPress = () => {
-
-    };
+const CategoryCard = ({ item, index,handleClick }: any) => {
 
     const renderIllustration = () => {
         switch (item.illustration) {
@@ -27,9 +23,8 @@ const CategoryCard = ({ item, index }: any) => {
         };
     };
 
-
     return (
-        <TouchableOpacity style={styles.parent} onPress={() => handleCategoryPress()}>
+        <TouchableOpacity style={styles.parent} onPress={handleClick}>
             <View key={index} style={styles.container}>
                 {/* Description container */}
                 <View style={styles.descriptionContainer}>

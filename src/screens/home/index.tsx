@@ -17,7 +17,7 @@ const { width, height } = Dimensions.get("screen");
 const ITEM_SIZE = height * 0.25 + 50;
 
 
-const CategoryList = () => {
+const CategoryList = ({ handleCategoryNavigation }: any) => {
     //animation managing
     const scrollY = React.useRef(new Animated.Value(0)).current;
 
@@ -59,7 +59,7 @@ const CategoryList = () => {
                 /* Category card */
                 return (
                     <Animated.View style={{ display: 'flex', alignContent: 'center', width: width * .9, height: height * 0.25, transform: [{ scale }], opacity }}>
-                        <CategoryCard item={item} index={index} />
+                        <CategoryCard item={item} index={index} handleClick={handleCategoryNavigation} />
                     </Animated.View>
                 );
             }}
@@ -83,11 +83,15 @@ const MarketplaceList = () => {
     );
 };
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }: any) => {
     const [authenticationMachine, sendAuthenticationMachineEvent] = useMachine(AuthenticationMachine);
     const [locationMachine, sendLocationMachineEvent] = useMachine(LocationMachine);
     const { context: authContext } = authenticationMachine;
     const { context: locationContext } = locationMachine;
+
+    const handleCategoryNavigation = () => {
+        navigation.navigate('Details');
+    };
 
     return (
         <View style={styles.page}>
@@ -112,7 +116,7 @@ const HomeScreen = () => {
             {/* Container holding the categories list */}
             <View style={styles.categoriesContainer}>
                 <Text style={styles.sectionLabel}>Adapt quickly</Text>
-                <CategoryList />
+                <CategoryList handleCategoryNavigation={handleCategoryNavigation} />
             </View>
         </View>
     );
