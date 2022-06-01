@@ -89,8 +89,9 @@ const HomeScreen = ({ navigation }: any) => {
     const { context: authContext } = authenticationMachine;
     const { context: locationContext } = locationMachine;
 
-    const handleCategoryNavigation = () => {
-        navigation.navigate('Details');
+    const handleCategoryNavigation = (id: any) => {
+        console.log('ID u metodi -> ', id);
+        navigation.navigate('Details', { itemID: id });
     };
 
     return (

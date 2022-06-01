@@ -25,8 +25,6 @@ const Accordion = ({ item, index }: any) => {
         setIsExpanded(!isExpanded);
     };
 
-    console.log('Item org -> ', item.organisation);
-
     return (
         <TouchableOpacity style={!isExpanded ? styles.notExpandedContainer : styles.expandedContainer} onPress={handlePress} >
             <View style={styles.accordionContainer}>
