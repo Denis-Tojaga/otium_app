@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CATEGORIES } from '../../api/categories';
 import { colors } from '../../utils/theme/colors';
@@ -24,7 +24,7 @@ const CategoryCard = ({ item, index, handleClick }: any) => {
     };
 
     return (
-        <TouchableOpacity style={styles.parent} onPress={() => handleClick(item.id)}>
+        <TouchableOpacity style={styles.parent} onPress={() => item.id == '3' ? handleClick(item.id) : Alert.alert('Work is in progress...')}>
             <View key={index} style={styles.container}>
                 {/* Description container */}
                 <View style={styles.descriptionContainer}>
