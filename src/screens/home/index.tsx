@@ -1,4 +1,4 @@
-import { useMachine } from '@xstate/react';
+import { useActor, useMachine } from '@xstate/react';
 import * as React from 'react';
 import { View, Text, StyleSheet, Animated, Dimensions, FlatList, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -6,6 +6,7 @@ import { CATEGORIES } from '../../api/categories';
 import { MARKETPLACE } from '../../api/marketplace';
 import CategoryCard from '../../components/CategoryCard';
 import MarketplaceCard from '../../components/MarketplaceCard';
+import { GlobalStateContext } from '../../context/GlobalStateProvider';
 import { AuthenticationMachine } from '../../machines/AuthenticationMachine';
 import { LocationMachine } from '../../machines/LocationMachine';
 import { colors } from '../../utils/theme/colors';
@@ -97,15 +98,11 @@ const MarketplaceList = () => {
 };
 
 const HomeScreen = ({ navigation }: any) => {
-    const [authenticationMachine, sendAuthenticationMachineEvent] = useMachine(AuthenticationMachine);
-    const [locationMachine, sendLocationMachineEvent] = useMachine(LocationMachine);
-    const { context: authContext } = authenticationMachine;
-    const { context: locationContext } = locationMachine;
-
     const handleCategoryNavigation = (id: any) => {
         console.log('ID u metodi -> ', id);
         navigation.navigate('Details', { itemID: id });
     };
+
 
     return (
         <View style={styles.page}>
@@ -114,7 +111,7 @@ const HomeScreen = ({ navigation }: any) => {
                 <View style={styles.headingContainer}>
                     {/* <Text>Hi {authContext.data.defaultAuth && authContext.data.defaultAuth.username}</Text> */}
                     <Text style={styles.title}>Hi Denis 👋</Text>
-                    <Text style={styles.smallTitle}>Welcome to Stockholm  </Text>
+                    <Text style={styles.smallTitle}>Welcome to Mostar</Text>
                 </View>
             </View>
             {/* Container holding the marketplace list */}
